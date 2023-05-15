@@ -142,6 +142,7 @@ app.post('/login',(req,res)=>{
                 {
                     const token=jwt.sign({email:req.body.email,id:result.id},secretKey);
                     req.session.token=token;
+                    console.log(req.session.token);
                     res.redirect('/PostSecrets');
                 }
                 else{res.render('login',{alert:"Incorrect Password..Please try again."});}
