@@ -10,6 +10,7 @@ const secretKey=process.env.SECRET;
 const GOOGLE_CLIENT_ID=process.env.CLIENT_ID;
 const GOOGLE_CLIENT_SECRET=process.env.CLIENT_SECRET;
 const Mongo_Password=process.env.MongoPassword;
+const PORT=process.env.PORT || 3000;
 const jwt=require('jsonwebtoken');
 const passport=require('passport');
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
@@ -165,6 +166,6 @@ app.get('/logout',(req,res)=>{
     req.session.destroy();
     res.redirect('/login');
 })
-app.listen(3000,(req,res)=>{
+app.listen(PORT,(req,res)=>{
     console.log("Server started running on port 3000");
 })
