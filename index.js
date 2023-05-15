@@ -21,7 +21,15 @@ app.use(bodyParser.urlencoded({extended:false}));
 app.use('/public',express.static('public'));
 app.set('view engine','ejs');
 
-mongoose.connect(`mongodb+srv://venkatpwn:${Mongo_Password}@cluster0.vgde88u.mongodb.net/Secrets`);
+const connectDB = async () => {
+  try {
+    const conn = await mongoose.connect(process.env.MONGO_URI);
+    console.log(`MongoDB Connected: ${conn.connection.host}`);
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
+  }
+}
 const UserSchema=mongoose.Schema({
     Email:String,
     Password:String,
@@ -165,7 +173,9 @@ app.get('/animations.js', function(req, res) {
 app.get('/logout',(req,res)=>{
     req.session.destroy();
     res.redirect('/login');
-})
-app.listen(PORT,(req,res)=>{
-    console.log("Server started running on port 3000");
-})
+});
+connectDB().then(() => {
+    app.listen(PORT, () => {
+        console.log("listening for requests");
+    })
+});
