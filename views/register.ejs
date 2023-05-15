@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="public/styles.css">
+    <title>Register Page</title>
+</head>
+<body>
+    <div class="menu-bar">
+        <p class="heading">Secrets</p>
+        <ul class="menu">
+            <li><a href="/">Home</a></li>
+            <li><a href="/PostSecrets">PostSecrets</a></li>
+            <li><a href="/secrets">Secrets</a></li>
+            <li><a href="/logout">LogOut</a></li>
+        </ul>
+    </div>
+    <div class="auth_page">
+        <h1>Register</h1>
+        <form action="/register" method="post" class="register_form">
+             <p class="auth_email">Email</p>
+             <input type="email" class="mail" name="email" autocomplete="off" required>
+             <p class="auth_password">Password</p>
+             <input type="password" class="password" name="password" autocomplete="off" required>
+             <p class="auth_password">Confirm Password</p>
+             <input type="password" class="password" name="Confirm_password" autocomplete="off" required>
+             <div style="color:red;font-size: 15px;" class="alertPass"> <%-alert %>  </div>
+             <button type="submit" class="page_btns" id="register">Register</button>
+        </form>
+        <button class="google-sign-in">
+            <a href="auth/google"><img src="public/google-logo.png" class="Google-logo">
+            Sign Up with Google</a>
+        </button>
+        <script src="animations.js" type="text/javascript"></script>
+    </div>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="public/styles.css">
+    <title>Login Page</title>
+</head>
+<body>
+    <div class="menu-bar">
+        <p class="heading">Secrets</p>
+        <ul class="menu">
+            <li><a href="/">Home</a></li>
+            <li><a href="/PostSecrets">PostSecrets</a></li>
+            <li><a href="/secrets">Secrets</a></li>
+            <li><a href="/logout">LogOut</a></li>
+        </ul>
+    </div>
+    <div class="auth_page">
+        <h1>Login</h1>
+        <form action="/login" method="post" class="login_form">
+             <p class="auth_email">Email</p>
+             <input type="email" class="mail" name="email" autocomplete="off" required>
+             <p class="auth_password">Password</p>
+             <input type="password" class="password" name="password" autocomplete="off" required><br>
+             <div style="color:red;font-size: 15px;"> <%-alert %>  </div>
+             <button type="submit" class="page_btns">Login</button>
+        </form>
+        <button class="google-sign-in">
+            <a href="auth/google"><img src="public/google-logo.png" class="Google-logo">
+            Sign in with Google</a>
+        </button>
+    </div>
+</body>
+</html>
