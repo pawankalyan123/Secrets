@@ -96,7 +96,7 @@ app.get('/auth/google/PostSecrets',
 });
 
 app.get('/PostSecrets',(req,res)=>{
-    if(token in req.session)
+    if(req.session.token)
     {res.render('PostSecrets',{alert:'',token: req.session.token});}
     else{res.render('PostSecrets',{alert:'',token: ''});}  
 });
