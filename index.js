@@ -97,6 +97,7 @@ app.get('/auth/google/PostSecrets',
 });
 
 app.get('/PostSecrets',(req,res)=>{
+    req.body.token=req.session.token
     console.log("Postsession=",req.session);
     res.render('PostSecrets',{alert:''});
 });
@@ -155,7 +156,9 @@ app.post('/login',(req,res)=>{
     
 });
 app.post('/submit',(req,res)=>{
+    console.log("body s",req.body.token);
     console.log("submit=",req.session);
+    req.session.token=req.body.token;
     jwt.verify(req.session.token,secretKey,(err,decoded)=>{
         console.log("decoded=",decoded);
         if(err){console.log(err);
