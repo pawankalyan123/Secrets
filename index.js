@@ -142,7 +142,7 @@ app.post('/login',(req,res)=>{
                 {
                     const token=jwt.sign({email:req.body.email,id:result.id},secretKey);
                     req.session.token=token;
-                    console.log(req.session.token);
+                    console.log("login=",req.session);
                     res.redirect('/PostSecrets');
                 }
                 else{res.render('login',{alert:"Incorrect Password..Please try again."});}
@@ -152,9 +152,9 @@ app.post('/login',(req,res)=>{
     
 });
 app.post('/submit',(req,res)=>{
-    console.log(req,req.session.token);
+    console.log("submit=",req.session);
     jwt.verify(req.session.token,secretKey,(err,decoded)=>{
-        console.log(decoded);
+        console.log("decoded=",decoded);
         if(err){console.log(err);
           res.render('PostSecrets',{alert:'You are not logged in,Please Login!'});}
         else{
