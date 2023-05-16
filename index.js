@@ -97,7 +97,7 @@ app.get('/auth/google/PostSecrets',
 
 app.get('/PostSecrets',(req,res)=>{
     console.log("Postsession=",req);
-    res.render('PostSecrets',{alert:''});
+    res.render('PostSecrets',{alert:'',token: req.session.token});
 });
 app.get('/secrets',(req,res)=>{
     User.find({"Secret":{$ne:null}},(err,users)=>{
@@ -153,8 +153,9 @@ app.post('/login',(req,res)=>{
     
 });
 app.post('/submit',(req,res)=>{
+    req.session.token=req.body.token;
     console.log("submit",req);
-    jwt.verify(req.session.token,secretKey,(err,decoded)=>{
+    jwt.verify(req.body.token,secretKey,(err,decoded)=>{
         console.log("decoded=",decoded);
         if(err){console.log(err);
           res.render('PostSecrets',{alert:'You are not logged in,Please Login!'});}
