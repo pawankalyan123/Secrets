@@ -152,8 +152,9 @@ app.post('/login',(req,res)=>{
     
 });
 app.post('/submit',(req,res)=>{
-
+    console.log(req,req.session.token);
     jwt.verify(req.session.token,secretKey,(err,decoded)=>{
+        console.log(decoded);
         if(err){console.log(err);
           res.render('PostSecrets',{alert:'You are not logged in,Please Login!'});}
         else{
