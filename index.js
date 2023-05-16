@@ -42,7 +42,7 @@ app.use(session({
     resave:false,
     saveUninitialized:false,
     cookie:{
-         maxAge:2592000000
+         maxAge:600000
     }
 }));
 
@@ -96,7 +96,7 @@ app.get('/auth/google/PostSecrets',
 });
 
 app.get('/PostSecrets',(req,res)=>{
-   res.render('PostSecrets',{alert:''});   
+   res.render('PostSecrets',{alert:'',token:req.session.token});   
 });
 app.get('/secrets',(req,res)=>{
     User.find({"Secret":{$ne:null}},(err,users)=>{
@@ -152,10 +152,10 @@ app.post('/login',(req,res)=>{
     
 });
 app.post('/submit',(req,res)=>{
-    
+    req.session.token=req.body.token;
     jwt.verify(req.session.token,secretKey,(err,decoded)=>{
         if(err){console.log(err);
-          res.render('PostSecrets',{alert:'You are not logged in,Please Login!'});}
+          res.render('PostSecrets',{alert:'You are not logged in,Please Login!',token:''});}
         else{
             const SecretText=req.body.SecretText;
             
