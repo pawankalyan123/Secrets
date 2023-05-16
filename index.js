@@ -5,7 +5,6 @@ const bcrypt=require('bcrypt');
 const saltRounds=10;
 const mongoose=require('mongoose');
 const session=require('express-session');
-const MongoStore = require('connect-mongo')(session);
 const app=express();
 const secretKey=process.env.SECRET;
 const GOOGLE_CLIENT_ID=process.env.CLIENT_ID;
@@ -44,8 +43,7 @@ app.use(session({
     saveUninitialized:false,
     cookie:{
          maxAge:2592000000
-    },
-   store: new MongoStore({ mongooseConnection: mongoose.connection })
+    }
 }));
 
 const User=mongoose.model('User',UserSchema);
