@@ -37,7 +37,6 @@ const UserSchema=mongoose.Schema({
     Secret:String
 });
 UserSchema.plugin(findOrCreate);
-app.set('trust proxy', 1);
 app.use(session({
     secret:secretKey,
     resave:false,
@@ -46,6 +45,10 @@ app.use(session({
          maxAge:2592000000
     }
 }));
+// Initialize Passport.js middleware
+app.use(passport.initialize());
+app.use(passport.session());
+
 const User=mongoose.model('User',UserSchema);
 
 passport.serializeUser((user, done) => {
