@@ -37,6 +37,7 @@ const UserSchema=mongoose.Schema({
     Secret:String
 });
 UserSchema.plugin(findOrCreate);
+app.set('trust proxy', 1);
 app.use(session({
     secret:secretKey,
     resave:false,
