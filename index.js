@@ -96,8 +96,9 @@ app.get('/auth/google/PostSecrets',
 });
 
 app.get('/PostSecrets',(req,res)=>{
-    console.log("Postsession=",req);
-    res.render('PostSecrets',{alert:'',token: req.session.token});
+    if(token in req.session)
+    {res.render('PostSecrets',{alert:'',token: req.session.token});}
+    else{res.render('PostSecrets',{alert:'',token: ''});}  
 });
 app.get('/secrets',(req,res)=>{
     User.find({"Secret":{$ne:null}},(err,users)=>{
@@ -153,12 +154,11 @@ app.post('/login',(req,res)=>{
     
 });
 app.post('/submit',(req,res)=>{
-    req.session.token=req.body.token;
-    console.log("submit",req);
+    
     jwt.verify(req.body.token,secretKey,(err,decoded)=>{
         console.log("decoded=",decoded);
         if(err){console.log(err);
-          res.render('PostSecrets',{alert:'You are not logged in,Please Login!'});}
+          res.render('PostSecrets',{alert:'You are not logged in,Please Login!',token:''});}
         else{
             const SecretText=req.body.SecretText;
             
