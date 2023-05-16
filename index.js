@@ -89,6 +89,7 @@ app.get('/auth/google/PostSecrets',
        else{
         const token=jwt.sign({email:req.user.emails[0].value,id:result.id},secretKey);
         req.session.token=token;
+         console.log("gsession=",req.session);
         res.redirect('/PostSecrets');
        }
     })
