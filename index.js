@@ -97,6 +97,7 @@ app.get('/auth/google/PostSecrets',
 });
 
 app.get('/PostSecrets',(req,res)=>{
+    console.log("Postsession=",req.session);
     res.render('PostSecrets',{alert:''});
 });
 app.get('/secrets',(req,res)=>{
