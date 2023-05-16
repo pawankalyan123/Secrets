@@ -5,6 +5,7 @@ const bcrypt=require('bcrypt');
 const saltRounds=10;
 const mongoose=require('mongoose');
 const session=require('express-session');
+const MongoStore = require('connect-mongo')(session);
 const app=express();
 const secretKey=process.env.SECRET;
 const GOOGLE_CLIENT_ID=process.env.CLIENT_ID;
@@ -43,7 +44,8 @@ app.use(session({
     saveUninitialized:false,
     cookie:{
          maxAge:2592000000
-    }
+    },
+   store: new MongoStore({ mongooseConnection: mongoose.connection })
 }));
 
 const User=mongoose.model('User',UserSchema);
@@ -96,9 +98,7 @@ app.get('/auth/google/PostSecrets',
 });
 
 app.get('/PostSecrets',(req,res)=>{
-    if(req.session.token)
-    {res.render('PostSecrets',{alert:'',token: req.session.token});}
-    else{res.render('PostSecrets',{alert:'',token: ''});}  
+   res.render('PostSecrets',{alert:''});   
 });
 app.get('/secrets',(req,res)=>{
     User.find({"Secret":{$ne:null}},(err,users)=>{
@@ -155,10 +155,9 @@ app.post('/login',(req,res)=>{
 });
 app.post('/submit',(req,res)=>{
     
-    jwt.verify(req.body.token,secretKey,(err,decoded)=>{
-        console.log("decoded=",decoded);
+    jwt.verify(req.session.token,secretKey,(err,decoded)=>{
         if(err){console.log(err);
-          res.render('PostSecrets',{alert:'You are not logged in,Please Login!',token:''});}
+          res.render('PostSecrets',{alert:'You are not logged in,Please Login!'});}
         else{
             const SecretText=req.body.SecretText;
             
